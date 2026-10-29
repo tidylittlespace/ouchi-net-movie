@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block main %}
+<h1 class="list-heading">{{ heading }}</h1>
+{% for p in posts %}
+<article class="card">
+  <a href="{{ base }}{{ p.url }}"><h2>{{ p.title }}</h2></a>
+  <p>{{ p.description }}</p>
+  <div class="meta">{{ p.date }} ・ <a href="{{ base }}/category/{{ p.category }}/">{{ cats.get(p.category, p.category) }}</a></div>
+</article>
+{% else %}
+<p>記事はまだありません。</p>
+{% endfor %}
+{% endblock %}

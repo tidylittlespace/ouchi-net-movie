@@ -1,0 +1,42 @@
+# 毎週月曜 9:00 (JST) に記事を生成し、レビュー用のプルリクエストを作る。
+# PR をマージすると deploy.yml が走って公開される。
+name: generate-articles
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "生成する記事数（空なら config の値）"
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Generate
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python -m engine.generate ${{ inputs.count && format('-n {0}', inputs.count) || '' }}
+      - name: Open pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet; then echo "変更なし"; exit 0; fi
+          branch="articles/$(date +%Y%m%d-%H%M)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add content data/keywords.csv
+          git commit -m "記事を自動生成 ($(date +%Y-%m-%d))"
+          git push origin "$branch"
+          gh pr create --title "新規記事レビュー $(date +%Y-%m-%d)" --body-file .review_summary.md

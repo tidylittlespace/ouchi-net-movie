@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} | {{ site.name }}{% endblock %}
+{% block description %}{{ post.description }}{% endblock %}
+{% block path %}{{ post.url }}{% endblock %}
+{% block head %}
+<script type="application/ld+json">
+{{ {"@context": "https://schema.org", "@type": "Article", "headline": post.title,
+    "datePublished": post.date, "dateModified": post.updated or post.date,
+    "author": {"@type": "Person", "name": author.name}} | tojson }}
+</script>
+{% if post.has_mermaid %}
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.esm.min.mjs";
+mermaid.initialize({ startOnLoad: true, theme: "neutral" });
+</script>
+{% endif %}
+{% endblock %}
+{% block main %}
+<article class="post">
+  <div class="disclosure">{{ disclosure }}</div>
+  <h1>{{ post.title }}</h1>
+  <div class="meta">公開: {{ post.date }}{% if post.updated %} ・ 更新: {{ post.updated }}{% endif %} ・ 執筆: {{ author.name }} ・ <a href="{{ base }}/category/{{ post.category }}/">{{ cats.get(post.category, post.category) }}</a></div>
+  {% if post.toc %}<details class="toc" open><summary>目次</summary>{{ post.toc | safe }}</details>{% endif %}
+  <div class="content">{{ post.content | safe }}</div>
+  <aside class="author-box"><strong>{{ author.name }}</strong><p>{{ author.profile }}</p></aside>
+</article>
+{% if related %}
+<section class="related"><h2>関連記事</h2><ul>
+{% for r in related %}<li><a href="{{ base }}{{ r.url }}">{{ r.title }}</a></li>{% endfor %}
+</ul></section>
+{% endif %}
+{% endblock %}

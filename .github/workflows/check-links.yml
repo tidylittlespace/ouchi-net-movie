@@ -1,0 +1,17 @@
+# 毎日 8:00 (JST) に案件リンクの死活と終了日をチェック。失敗すると GitHub から通知メールが届く。
+name: check-links
+on:
+  schedule:
+    - cron: "0 23 * * *"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - run: python -m engine.check_links

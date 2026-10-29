@@ -1,0 +1,30 @@
+# ===== サイト設定 =====
+site:
+  name: "おうちネットと映画の部屋"
+  url: "https://tidylittlespace.github.io/ouchi-net-movie"   # 公開URL（末尾スラッシュなし）
+  description: "引っ越し後のネット回線選びから、家で映画を快適に観る環境づくりまで。実体験ベースで解説します。"
+  language: "ja"
+  ga4_id: ""            # 例: G-XXXXXXX（空なら計測タグなし）
+
+# カテゴリの表示名（URL はキー、画面表示は値）
+categories:
+  hikari: "光回線"
+  homerouter: "ホームルーター・Wi-Fi"
+  hikkoshi: "引っ越し"
+  vod: "動画配信・おうち映画"
+
+# 運営者情報（E-E-A-T 対策。記事生成プロンプトにも渡される）
+author:
+  name: "運営者名"
+  profile: "引っ越し○回、そのたびにネット回線の手続きで苦労してきた映画好き。年間○本を自宅で観ています。"
+
+# 記事生成
+generation:
+  model: "claude-opus-5-5"
+  effort: "high"
+  max_tokens: 32000
+  articles_per_run: 3       # 1 回の実行で生成する記事数
+  min_chars: 1500           # 水増し防止のため低めに設定。長さより中身を重視
+
+# 広告表記（ステマ規制対応。全記事の冒頭に自動挿入）
+disclosure: "本記事はアフィリエイト広告（PR）を含みます。紹介する商品・サービスの選定は編集方針に基づき独自に行っています。"

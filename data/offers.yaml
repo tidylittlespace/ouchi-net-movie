@@ -1,0 +1,85 @@
+# 案件マスタ。ASP（A8.net / もしもアフィリエイト / afb / バリューコマース / アクセストレード等）で
+# 提携承認された案件の広告リンクをここに集約する。記事中は {{offer:slug}} で参照するため、
+# リンク差し替え・案件終了はこのファイルを直すだけで全記事に反映される。
+#
+# 以下はすべてサンプル。必ず自分の提携リンク・報酬額・特徴に置き換えること。
+#
+# 項目:
+#   url         ASP の広告リンク（テキストリンク用 URL）
+#   banner_html ASP の「バナー広告コード」をそのまま貼る（任意。紹介ボックスの上部に表示）
+#   reward      1 成果あたり報酬（円）。記事には出ない。管理用
+#   end_date    案件終了日（YYYY-MM-DD）。過ぎると link check が警告
+
+# ---- 光回線 ----
+- slug: hikari-a
+  name: "光回線A"
+  category: hikari
+  url: "https://example.com/aff/hikari-a"
+  banner_html: ""
+  reward: 15000
+  catch: "大手キャリアのスマホとセット割"
+  points: ["スマホ代が毎月割引", "提供エリアが広い", "引っ越し時の移転手続きに対応"]
+  end_date: ""
+
+- slug: hikari-b
+  name: "光回線B"
+  category: hikari
+  url: "https://example.com/aff/hikari-b"
+  banner_html: ""
+  reward: 20000
+  catch: "高速通信に定評・動画視聴向き"
+  points: ["夜間も速度が落ちにくい", "4K 動画も快適", "提供エリアは限定的"]
+  end_date: ""
+
+# ---- ホームルーター・Wi-Fi ----
+- slug: homerouter-a
+  name: "ホームルーターA"
+  category: homerouter
+  url: "https://example.com/aff/homerouter-a"
+  banner_html: ""
+  reward: 10000
+  catch: "工事不要・コンセントに挿すだけ"
+  points: ["届いた日から使える", "引っ越しは住所変更だけ", "光回線より速度は控えめ"]
+  end_date: ""
+
+- slug: pocketwifi-b
+  name: "ポケットWi-Fi B"
+  category: homerouter
+  url: "https://example.com/aff/pocketwifi-b"
+  banner_html: ""
+  reward: 5000
+  catch: "開通待ちのつなぎにも使える短期プラン"
+  points: ["最短翌日発送", "持ち運べる", "大容量の動画視聴には不向き"]
+  end_date: ""
+
+# ---- 引っ越し ----
+- slug: hikkoshi-a
+  name: "引越し一括見積もりA"
+  category: hikkoshi
+  url: "https://example.com/aff/hikkoshi-a"
+  banner_html: ""
+  reward: 1500
+  catch: "複数社の見積もりを一度に比較"
+  points: ["入力は 1 分程度", "繁忙期の料金差を確認できる", "電話連絡が来る場合あり"]
+  end_date: ""
+
+# ---- 動画配信 ----
+- slug: vod-a
+  name: "動画配信A"
+  category: vod
+  url: "https://example.com/aff/vod-a"
+  banner_html: ""
+  reward: 1500
+  catch: "映画の見放題作品数が多い"
+  points: ["無料体験あり", "新作はポイントでレンタル", "月額はやや高め"]
+  end_date: ""
+
+- slug: vod-b
+  name: "動画配信B"
+  category: vod
+  url: "https://example.com/aff/vod-b"
+  banner_html: ""
+  reward: 1000
+  catch: "月額が安くアニメ・邦画に強い"
+  points: ["低価格", "無料体験あり", "洋画の旧作は少なめ"]
+  end_date: ""

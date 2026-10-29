@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="{{ site.language }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ site.name }}{% endblock %}</title>
+<meta name="description" content="{% block description %}{{ site.description }}{% endblock %}">
+<link rel="canonical" href="{{ site.url }}{% block path %}/{% endblock %}">
+<link rel="alternate" type="application/rss+xml" href="{{ base }}/feed.xml">
+<link rel="stylesheet" href="{{ base }}/style.css">
+{% if site.ga4_id %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4_id }}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','{{ site.ga4_id }}');</script>
+{% endif %}
+<script defer src="{{ base }}/track.js"></script>
+{% block head %}{% endblock %}
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+  <a class="logo" href="{{ base }}/">{{ site.name }}</a>
+  <nav>{% for key, name in cats.items() %}<a href="{{ base }}/category/{{ key }}/">{{ name }}</a>{% endfor %}<a href="{{ base }}/about/">運営者情報</a></nav>
+</div></header>
+<main class="wrap">{% block main %}{% endblock %}</main>
+<footer class="site-footer"><div class="wrap">
+  <p>当サイトはアフィリエイトプログラムを利用して商品・サービスを紹介しています。</p>
+  <p>&copy; {{ year }} {{ site.name }} ・ <a href="{{ base }}/about/">運営者情報・プライバシーポリシー</a></p>
+</div></footer>
+</body>
+</html>
