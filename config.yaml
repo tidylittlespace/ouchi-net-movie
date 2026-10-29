@@ -1,8 +1,8 @@
 # ===== サイト設定 =====
 site:
-  name: "おうちネットと映画の部屋"
+  name: "配信映画の部屋"
   url: "https://tidylittlespace.github.io/ouchi-net-movie"   # 公開URL（末尾スラッシュなし）
-  description: "引っ越し後のネット回線選びから、家で映画を快適に観る環境づくりまで。実体験ベースで解説します。"
+  description: "年間約200〜300本を自宅で観る映画好きが、動画配信サービスの使い分けや作品の探し方を、自分の経験をもとに紹介します。"
   language: "ja"
   ga4_id: ""            # 例: G-XXXXXXX（空なら計測タグなし）
 
