@@ -5,7 +5,7 @@
 **キーワード投入 → Claude が記事生成 → 人間が PR でレビュー → マージで自動公開 → リンク死活を毎日監視** までを GitHub だけで回します。サーバー代は 0 円（GitHub Pages）、かかるのは Claude API 代だけです（記事 1 本あたり数十円程度）。
 
 ```
-keywords.csv ──▶ generate (毎週月曜, GitHub Actions)
+keywords.csv ──▶ generate（現在は停止中。記事は Claude Code 上で作成）
                    │  Claude Opus 5.5 で記事生成 + 品質チェック
                    ▼
               プルリクエスト（要確認事項のチェックリスト付き）
@@ -86,7 +86,7 @@ python -m venv .venv
 4. Settings → Actions → General → Workflow permissions で **Allow GitHub Actions to create and approve pull requests** をオンにする。
 5. Actions タブから `generate-articles` を手動実行して PR が作られることを確認。
 
-以後は毎週月曜に PR が届くので、要確認事項をチェックしてマージするだけです。
+※ 週次の自動生成（generate.yml）は、API キーを使わない運用のため削除済みです。再開するには、このファイルを復元して ANTHROPIC_API_KEY を Secrets に登録してください。
 
 ## API を使わずに運用する（Claude アプリで書く）
 
