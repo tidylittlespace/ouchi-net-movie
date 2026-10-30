@@ -4,6 +4,7 @@ site:
   url: "https://tidylittlespace.github.io/ouchi-net-movie"   # 公開URL（末尾スラッシュなし）
   description: "年間約200〜300本を自宅で観る映画好きが、動画配信サービスの使い分けや作品の探し方を、自分の経験をもとに紹介します。"
   language: "ja"
+  show_offers: false    # ASP承認後に true へ。false の間は案件ボックス・比較表・記事冒頭のPR表記を出さない
   ga4_id: ""            # 例: G-XXXXXXX（空なら計測タグなし）
 
 # カテゴリの表示名（URL はキー、画面表示は値）

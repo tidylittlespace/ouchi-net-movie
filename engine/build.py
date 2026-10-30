@@ -43,17 +43,23 @@ def render_offer_table(offers, category):
             f'<th>特徴</th><th></th></tr></thead><tbody>{rows}</tbody></table></div>')
 
 
-def expand_shortcodes(body, offers, titles, base):
+EMPTY_SECTION_RE = re.compile(r"^##+ [^\n]*\n+(?=^##+ |\Z)", re.M)
+
+
+def expand_shortcodes(body, offers, titles, base, show_offers=True):
     def repl(m):
         kind, key = m.groups()
         if kind == "post":
             return f'<a class="internal" href="{base}/posts/{key}/">{html.escape(titles[key])}</a>'
+        if not show_offers:
+            return ""
         block = render_offer_box(offers[key]) if kind == "offer" else render_offer_table(offers, key)
         return f"\n\n{block}\n\n"
-    return SHORTCODE_RE.sub(repl, body)
+    expanded = SHORTCODE_RE.sub(repl, body)
+    return expanded if show_offers else EMPTY_SECTION_RE.sub("", expanded.rstrip() + "\n")
 
 
-def load_posts(offers, base):
+def load_posts(offers, base, show_offers=True):
     sources, errors = [], []
     for path in sorted(POSTS_DIR.glob("*.md")):
         parsed = parse_post(path.read_text(encoding="utf-8"))
@@ -70,7 +76,7 @@ def load_posts(offers, base):
             continue
         md = markdown.Markdown(extensions=["tables", "toc", "fenced_code"],
                                extension_configs={"toc": {"toc_depth": "2-3"}})
-        content = md.convert(expand_shortcodes(body, offers, titles, base))
+        content = md.convert(expand_shortcodes(body, offers, titles, base, show_offers))
         content, n_diagrams = MERMAID_RE.subn(r'<pre class="mermaid">\1</pre>', content)
         posts.append({**meta, "date": str(meta.get("date", "")), "content": content,
                       "toc": md.toc, "has_mermaid": n_diagrams > 0,
@@ -88,7 +94,8 @@ def main():
     cfg = load_config()
     site = cfg["site"]
     base = ("/" + site["url"].split("://", 1)[-1].partition("/")[2].strip("/")).rstrip("/")
-    posts, errors = load_posts(load_offers(), base)
+    show_offers = site.get("show_offers", True)
+    posts, errors = load_posts(load_offers(), base, show_offers)
     if errors:
         print("ビルドエラー:\n  " + "\n  ".join(errors), file=sys.stderr)
         return 1
@@ -96,6 +103,7 @@ def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=True)
     cats = cfg.get("categories", {})
     ctx = {"site": site, "author": cfg["author"], "disclosure": cfg["disclosure"],
+           "post_disclosure": cfg["disclosure"] if show_offers else "",
            "base": base, "cats": cats, "year": dt.date.today().year}
 
     if OUT.exists():

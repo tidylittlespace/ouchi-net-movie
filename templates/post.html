@@ -17,7 +17,7 @@ mermaid.initialize({ startOnLoad: true, theme: "neutral" });
 {% endblock %}
 {% block main %}
 <article class="post">
-  <div class="disclosure">{{ disclosure }}</div>
+  {% if post_disclosure %}<div class="disclosure">{{ post_disclosure }}</div>{% endif %}
   <h1>{{ post.title }}</h1>
   <div class="meta">公開: {{ post.date }}{% if post.updated %} ・ 更新: {{ post.updated }}{% endif %} ・ 執筆: {{ author.name }} ・ <a href="{{ base }}/category/{{ post.category }}/">{{ cats.get(post.category, post.category) }}</a></div>
   {% if post.toc %}<details class="toc" open><summary>目次</summary>{{ post.toc | safe }}</details>{% endif %}
