@@ -12,6 +12,7 @@ from xml.sax.saxutils import escape
 import markdown
 from jinja2 import Environment, FileSystemLoader
 
+from engine.lint import lint_all
 from engine.common import (
     POSTS_DIR, ROOT, SHORTCODE_RE, load_config, load_offers, parse_post, unknown_shortcodes,
 )
@@ -95,6 +96,12 @@ def main():
     site = cfg["site"]
     base = ("/" + site["url"].split("://", 1)[-1].partition("/")[2].strip("/")).rstrip("/")
     show_offers = site.get("show_offers", True)
+    lint_errors, lint_warnings = lint_all()
+    for w in lint_warnings:
+        print(f"警告（下書き） {w}")
+    if lint_errors:
+        print("文章ルール違反:" + chr(10) + "  " + (chr(10) + "  ").join(lint_errors), file=sys.stderr)
+        return 1
     posts, errors = load_posts(load_offers(), base, show_offers)
     if errors:
         print("ビルドエラー:\n  " + "\n  ".join(errors), file=sys.stderr)
