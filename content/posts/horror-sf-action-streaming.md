@@ -83,4 +83,4 @@ keyword: ホラー映画 おすすめ サブスク 見放題
 
 {{offer-table:vod}}
 
-{{offer:vod-a}}
+{{offer:crankin-video}}

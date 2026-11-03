@@ -81,4 +81,4 @@ Disney+ は、ディズニー、ピクサー、マーベル、スター・ウォ
 
 {{offer-table:vod}}
 
-{{offer:vod-a}}
+{{offer:crankin-video}}
