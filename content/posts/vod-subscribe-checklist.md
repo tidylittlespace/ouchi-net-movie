@@ -70,3 +70,5 @@ keyword: 動画配信 無料体験 解約 注意点
 {{offer-table:vod}}
 
 {{offer:crankin-video}}
+
+{{offer:prime-video}}
